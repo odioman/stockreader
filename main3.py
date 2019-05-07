@@ -22,11 +22,9 @@ def save_sp500_tickers():
 
     return tickers
 
-save_sp500_tickers()
-
+# save_sp500_tickers()
 
 def get_data_from_yahoo(reload_sp500=False):
-
     if reload_sp500:
         tickers = save_sp500_tickers()
     else:
@@ -47,9 +45,7 @@ def get_data_from_yahoo(reload_sp500=False):
         else:
             print('Already have {}'.format(ticker))
 
-get_data_from_yahoo()
-
-
+# get_data_from_yahoo()
 def compile_data():
     with open("sp500tickers.pickle","rb") as f:
         tickers = pickle.load(f)
@@ -57,7 +53,7 @@ def compile_data():
     main_df = pd.DataFrame()
 
     for count, ticker in enumerate(tickers):
-        df = pd.read_csv('stock_dfs/{}'.format(ticker))
+        df = pd.read_csv('stock_dfs/AWK.csv'.format(ticker))
         df.set_index('Date', inplace=True)
 
         df.rename(columns={'Adj Close': ticker}, inplace=True)
@@ -75,4 +71,3 @@ def compile_data():
         main_df.to_csv('sp500_joined_closes.csv')
 
 compile_data()
-
